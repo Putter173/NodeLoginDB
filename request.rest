@@ -1,0 +1,43 @@
+GET http://localhost:3000
+
+###
+
+GET http://localhost:3000/db
+
+###
+
+GET http://localhost:3000/error
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email" : "ewt@ag.com",
+    "password" : "sdfv"
+}
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email" : "hey@putterv.com",
+    "password" : "pass"
+}
+
+###
+
+GET http://localhost:3000/logged
+
+###
+
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "email" : "hey@putterv.com",
+    "password" : "pass"
+}

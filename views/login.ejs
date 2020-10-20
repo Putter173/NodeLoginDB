@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        body {
+            padding: 2vw;
+        }
+
+        body,
+        input,
+        button {
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        button,
+        input {
+            border: none;
+            padding: 0.5vw;
+            border-radius: 1vw;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        button:focus,
+        button:hover,
+        input {
+            outline: none;
+        }
+
+        button:hover,
+        #submit:hover {
+            background-color: lightgrey;
+        }
+
+        input {
+            background-color: #f5f5f5;
+        }
+
+        div {
+            width: fit-content;
+        }
+
+        #text {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <div id="text">
+        <!-- <% if (errorMsg) { %> <%= errorMsg %> <% } %> -->
+        <%= errorMsg %>
+    </div>
+    <div>
+        <form action="/login" method="POST">
+            <input placeholder="Email" type="email" id="email" name="email" required />
+            <input placeholder="Password" type="password" id="password" name="password" required />
+            <br>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <br>
+    <a href="/register">Register</a>
+</body>
