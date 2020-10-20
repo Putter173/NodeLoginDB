@@ -5,10 +5,10 @@ const port = process.env.PORT || 3000
 const session = require('express-session')
 const mysql = require('mysql');
 const con = mysql.createPool({
-  host: '103.58.148.212', 
-  user:'admin_tutorial', 
-  password: 'Knacx@2019++',
-  database: 'admin_tutorial'
+  host: 'us-cdbr-east-02.cleardb.com', 
+  user:'be9ca5edca85a9', 
+  password: 'ea9b1cc5',
+  database: 'heroku_78afe11673ee41e'
 });
 
 // Envionment Settings
@@ -30,21 +30,16 @@ var word = "Password"
 function checkInput(email, password, request, response) {
   con.getConnection((err, connection) => {
     if(err) throw err;
-    console.log('connected as id ' + connection.threadId);
     connection.query("SELECT * FROM users WHERE email = '" + email + "'", (err, result, fields) => {
     connection.release(); // return the connection to pool
     if (err) throw err;
-    console.log(JSON.stringify(result).includes(email))
     if (JSON.stringify(result).includes(email) == false) {
-      console.log("Incorrect Email")
       var errorMsg = "Incorrect Email"
       return response.redirect('/login?valid=' + errorMsg)
     } else if (JSON.stringify(result).includes(password)) {
-      console.log("Correct Password")
       request.session.isLoggedIn = true
       return response.redirect('/')
     } else { 
-      console.log("Incorrect Password")
       var errorMsg = "Incorrect Password"
       return response.redirect('/login?valid=' + errorMsg)
       }
@@ -55,12 +50,10 @@ function checkInput(email, password, request, response) {
 function insert(email, password, request, response) {
   con.getConnection((err, connection) => {
     if (err) throw err;
-    console.log('connected as id ' + connection.threadId);
     connection.query("SELECT * FROM users WHERE email = '" + email + "'", (err, result, fields) => {
       connection.release(); // return the connection to pool
       if (err) throw err;
       if (JSON.stringify(result).includes(email) == true) {
-        console.log("Email Already Exists")
         var errorMsg = "Email Already Exists"
         return response.redirect('/register?valid=' + errorMsg)
       } else {
@@ -73,12 +66,9 @@ function insert(email, password, request, response) {
 function add2DB(email, password) {
   con.getConnection((err, connection) => {
     if (err) throw err;
-    console.log('connected as id ' + connection.threadId);
     connection.query("INSERT INTO users (email, password) VALUES ('" + email + "', '" + password + "')",
       function (err, result, fields) {
         if (err) throw err;
-        console.log(result);
-        console.log("1 record inserted");
         return 
       })
   }
@@ -89,11 +79,9 @@ function add2DB(email, password) {
 function checkDB(email) {
   con.getConnection((err, connection) => {
         if(err) throw err;
-        console.log('connected as id ' + connection.threadId);
         connection.query('SELECT * from users', (err, result, fields) => {
             connection.release(); // return the connection to pool
             if(err) throw err;
-            console.log(result);
         });
     });
 }
